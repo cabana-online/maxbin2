@@ -26,12 +26,16 @@ RUN mkdir data tools
 
 # Sets ownership.
 RUN chown -R $USER:$USER $HOME && \
+    chown -R $USER:$USER /NGStools/MaxBin-2.2.7/ && \
     mkdir -p $HOME/CABANA
 
-# Configures environment.
-RUN \
-    cd /NGStools/MaxBin-2.2.7/ && \
-    ./autobuild_auxiliary
+# Cleans up libraries just in case.
+RUN set -xe; \
+    apt-get update -y && apt-get upgrade -y && \
+    apt-get install -y python && \
+    apt-get clean && \
+    apt-get autoclean;
+
 
 # Changes to work user.
 USER $USER
