@@ -28,6 +28,11 @@ RUN mkdir data tools
 RUN chown -R $USER:$USER $HOME && \
     mkdir -p $HOME/CABANA
 
+# Configures environment.
+RUN \
+    cd /NGStools/MaxBin-2.2.7/ && \
+    ./autobuild_auxiliary
+
 # Changes to work user.
 USER $USER
 
